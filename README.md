@@ -61,4 +61,4 @@ Built with **PostgreSQL/MySQL**, **Spring Boot 3**, and **Spring Kafka**.
 ### 1️⃣ Clone the repository
 ```bash
 git https://github.com/phamdongchinh683/backend-coffee-shop-manager
-cd coffee-shop-system
+cd backend-coffee-shop-manager
