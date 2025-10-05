@@ -22,7 +22,7 @@ public class UserCreationDto {
 
  @NotBlank(message = "Username is required")
  @Size(min = 3, max = 11, message = "Username must be between 3 and 11 characters")
- @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username can only contain letters, numbers, and underscores")
+ @Pattern(regexp = "^\\w+$", message = "Username can only contain letters, numbers, and underscores")
  String username;
 
  @NotBlank(message = "Password is required")

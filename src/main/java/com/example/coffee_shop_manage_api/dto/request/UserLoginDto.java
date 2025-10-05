@@ -14,12 +14,15 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserLoginDto {
-  @NotBlank(message = "Full name is required")
-  @Size(min = 2, max = 31, message = "Full name must be between 2 and 31 characters")
-  @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Full name can only contain letters and spaces")
-  String username;
-  @NotBlank(message = "Password is required")
-  @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
-  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Password must contain at least one lowercase letter, one uppercase letter, and one number")
-  String password;
+
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 11, message = "Username must be between 3 and 11 characters")
+    @Pattern(regexp = "^\\w+$", message = "Username can only contain letters, numbers, and underscores")
+    String username;
+
+    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Password must contain at least one lowercase letter, one uppercase letter, and one number")
+    String password;
 }

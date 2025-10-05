@@ -1,12 +1,13 @@
 package com.example.coffee_shop_manage_api.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.example.coffee_shop_manage_api.global.UserRole;
+import com.example.coffee_shop_manage_api.global.MenuStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,39 +28,44 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "users")
+@Table(name = "menus")
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+public class Menu {
 
-public class User {
  @Id
  @GeneratedValue(strategy = GenerationType.UUID)
  String id;
- @Column(nullable = false, length = 30)
- String fullName;
- @Column(nullable = false, unique = true, length = 10)
- String username;
- @Column(nullable = false, unique = true, length = 60)
- String password;
+
+ @Column(name = "menu_name", nullable = false, length = 50)
+ String menuName;
+
+ @Column(columnDefinition = "TEXT")
+ String description;
+
+ @Column(nullable = false, length = 20)
+ String costs;
+
+ @Column(nullable = false, length = 5)
+ String sizes;
+
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
- UserRole role = UserRole.GUEST;
+ MenuStatus status = MenuStatus.ACTIVE;
+
  @CreationTimestamp
  @Column(name = "created_at", updatable = false)
  LocalDateTime createdAt;
+
  @UpdateTimestamp
  @Column(name = "updated_at")
  LocalDateTime updatedAt;
 
- @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+ @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
  @JsonIgnore
- List<Order> orders;
-
- @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
- @JsonIgnore
- List<Reservation> reservations;
+ List<OrderItem> orderItems;
 
 }

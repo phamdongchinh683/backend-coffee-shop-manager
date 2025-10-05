@@ -6,9 +6,10 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.example.coffee_shop_manage_api.global.UserRole;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.coffee_shop_manage_api.global.PaymentStatus;
+import com.example.coffee_shop_manage_api.global.TableStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,39 +28,42 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "users")
+@Table(name = "tables")
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+public class CoffeeTable {
 
-public class User {
  @Id
  @GeneratedValue(strategy = GenerationType.UUID)
  String id;
- @Column(nullable = false, length = 30)
- String fullName;
- @Column(nullable = false, unique = true, length = 10)
- String username;
- @Column(nullable = false, unique = true, length = 60)
- String password;
+
+ @Column(name = "table_number", nullable = false)
+ Short tableNumber;
+
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
- UserRole role = UserRole.GUEST;
+ TableStatus status = TableStatus.AVAILABLE;
+
+ @Enumerated(EnumType.STRING)
+ @Column(name = "payment_status", nullable = false)
+ PaymentStatus paymentStatus = PaymentStatus.PENDING;
+
  @CreationTimestamp
  @Column(name = "created_at", updatable = false)
  LocalDateTime createdAt;
+
  @UpdateTimestamp
  @Column(name = "updated_at")
  LocalDateTime updatedAt;
 
- @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+ @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
  @JsonIgnore
  List<Order> orders;
 
- @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+ @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
  @JsonIgnore
  List<Reservation> reservations;
-
 }

@@ -21,6 +21,14 @@ public class UserInfo implements UserDetails {
  String username;
  UserRole role;
 
+ public String getFullName() {
+  return fullName;
+ }
+
+ public UserRole getRole() {
+  return role;
+ }
+
  @Override
  public Collection<? extends GrantedAuthority> getAuthorities() {
   return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
@@ -28,7 +36,7 @@ public class UserInfo implements UserDetails {
 
  @Override
  public String getPassword() {
-  return null; 
+  return null;
  }
 
  @Override

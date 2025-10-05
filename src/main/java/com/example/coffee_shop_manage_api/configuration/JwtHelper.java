@@ -32,6 +32,8 @@ public class JwtHelper {
 
   public String generateToken(UserInfo userInfo) {
     Map<String, Object> claims = new HashMap<>();
+    claims.put("role", userInfo.getRole());
+    claims.put("fullName", userInfo.getFullName());
     return Jwts.builder()
         .setClaims(claims)
         .setSubject(userInfo.getUsername())

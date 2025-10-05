@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.coffee_shop_manage_api.dto.request.UserCreationDto;
 import com.example.coffee_shop_manage_api.dto.request.UserLoginDto;
-import com.example.coffee_shop_manage_api.global.ApiResponse;
+import com.example.coffee_shop_manage_api.global.ApiResponseData;
 import com.example.coffee_shop_manage_api.service.UserService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/v1")
 public class AuthController {
 
  private final UserService userService;
@@ -24,22 +24,22 @@ public class AuthController {
  }
 
  @PostMapping("/register")
- public ResponseEntity<ApiResponse<String>> register(@Valid @RequestBody UserCreationDto userCreationDto) {
+ public ResponseEntity<ApiResponseData<String>> register(@Valid @RequestBody UserCreationDto request) {
   try {
-   userService.register(userCreationDto);
-   return ResponseEntity.status(201).body(ApiResponse.success("User created successfully", "", 201));
+   userService.register(request);
+   return ResponseEntity.status(201).body(ApiResponseData.success("User created successfully", "", 201));
   } catch (RuntimeException e) {
-   return ResponseEntity.status(400).body(ApiResponse.error(e.getMessage(), 400));
+   return ResponseEntity.status(400).body(ApiResponseData.error(e.getMessage(), 400));
   }
  }
 
  @PostMapping("/login")
- public ResponseEntity<ApiResponse<String>> login(@Valid @RequestBody UserLoginDto userLoginDto) {
+ public ResponseEntity<ApiResponseData<String>> login(@Valid @RequestBody UserLoginDto request) {
   try {
-   String result = userService.login(userLoginDto);
-   return ResponseEntity.status(200).body(ApiResponse.success("Login successful", result, 200));
+   String result = userService.login(request);
+   return ResponseEntity.status(200).body(ApiResponseData.success("Login successful", result, 200));
   } catch (RuntimeException e) {
-   return ResponseEntity.status(400).body(ApiResponse.error(e.getMessage(), 400));
+   return ResponseEntity.status(400).body(ApiResponseData.error(e.getMessage(), 400));
   }
  }
 }
