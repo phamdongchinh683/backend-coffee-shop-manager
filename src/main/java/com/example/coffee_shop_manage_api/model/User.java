@@ -7,8 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.example.coffee_shop_manage_api.global.UserRole;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,6 +44,8 @@ public class User {
  String username;
  @Column(nullable = false, unique = true, length = 60)
  String password;
+ @Column(nullable = false, unique = true, length = 13)
+ String phoneNumber;
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
  UserRole role = UserRole.GUEST;

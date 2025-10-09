@@ -19,6 +19,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Future;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,18 +44,23 @@ public class Reservation {
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "table_id", nullable = false)
  @JsonIgnore
+ @NotNull(message = "Table is required")
  CoffeeTable table;
 
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "user_id", nullable = false)
  @JsonIgnore
+ @NotNull(message = "User is required")
  User user;
 
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
+ @NotNull(message = "Reservation status is required")
  ReservationStatus status = ReservationStatus.PENDING;
 
  @Column(name = "reservation_time", nullable = false)
+ @NotNull(message = "Reservation time is required")
+ @Future(message = "Reservation time must be in the future")
  LocalDateTime reservationTime;
 
  @CreationTimestamp

@@ -1,6 +1,7 @@
 package com.example.coffee_shop_manage_api.service;
 
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.example.coffee_shop_manage_api.common.AbstractCommonService;
 import com.example.coffee_shop_manage_api.model.Menu;
@@ -11,5 +12,9 @@ public class MenuService extends AbstractCommonService<Menu, String> {
     
     public MenuService(MenuRepository menuRepository) {
         super(menuRepository);
+    }
+
+    public List<Menu> createAll(List<Menu> menus) {
+        return repository.saveAll(menus);
     }
 }

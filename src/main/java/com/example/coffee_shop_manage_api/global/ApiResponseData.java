@@ -7,49 +7,47 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiResponseData<T> {
 
- private boolean success;
  private String message;
  private T data;
  private int statusCode;
 
  public static <T> ApiResponseData<T> success(T data) {
-  return new ApiResponseData<>(true, "Operation successful", data, 200);
+  return new ApiResponseData<>("Operation successful", data, 200);
  }
 
  public static <T> ApiResponseData<T> success(String message, T data) {
-  return new ApiResponseData<>(true, message, data, 200);
+  return new ApiResponseData<>( message, data, 200);
  }
 
  public static <T> ApiResponseData<T> success(String message, T data, int statusCode) {
-  return new ApiResponseData<>(true, message, data, statusCode);
+  return new ApiResponseData<>( message, data, statusCode);
  }
 
- // Error responses
  public static <T> ApiResponseData<T> error(String message) {
-  return new ApiResponseData<>(false, message, null, 400);
+  return new ApiResponseData<>( message, null, 400);
  }
 
  public static <T> ApiResponseData<T> error(String message, int statusCode) {
-  return new ApiResponseData<>(false, message, null, statusCode);
+  return new ApiResponseData<>( message, null, statusCode);
  }
 
  public static <T> ApiResponseData<T> error(String message, T data, int statusCode) {
-  return new ApiResponseData<>(false, message, data, statusCode);
+  return new ApiResponseData<>( message, data, statusCode);
  }
 
  public static <T> ApiResponseData<T> notFound(String message) {
-  return new ApiResponseData<>(false, message, null, 404);
+  return new ApiResponseData<>( message, null, 404);
  }
 
  public static <T> ApiResponseData<T> unauthorized(String message) {
-  return new ApiResponseData<>(false, message, null, 401);
+  return new ApiResponseData<>(message, null, 401);
  }
 
  public static <T> ApiResponseData<T> forbidden(String message) {
-  return new ApiResponseData<>(false, message, null, 403);
+  return new ApiResponseData<>( message, null, 403);
  }
 
  public static <T> ApiResponseData<T> internalError(String message) {
-  return new ApiResponseData<>(false, message, null, 500);
+  return new ApiResponseData<>( message, null, 500);
  }
 }

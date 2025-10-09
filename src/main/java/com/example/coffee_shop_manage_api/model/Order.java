@@ -23,6 +23,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,18 +48,23 @@ public class Order {
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "table_id", nullable = false)
  @JsonIgnore
+ @NotNull(message = "Table is required")
  CoffeeTable table;
 
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "user_id", nullable = false)
  @JsonIgnore
+ @NotNull(message = "User is required")
  User user;
 
  @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+ @NotNull(message = "Total amount is required")
+ @DecimalMin(value = "0.01", message = "Total amount must be greater than 0")
  BigDecimal totalAmount;
 
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
+ @NotNull(message = "Order status is required")
  OrderStatus status = OrderStatus.OPEN;
 
  @CreationTimestamp

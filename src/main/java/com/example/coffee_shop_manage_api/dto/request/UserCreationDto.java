@@ -29,4 +29,9 @@ public class UserCreationDto {
  @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", message = "Password must contain at least one lowercase letter, one uppercase letter, and one number")
  String password;
+ 
+ @NotBlank(message = "Phone number is required")
+ @Size(min = 10, max = 13, message = "Phone number must be between 10 and 13 characters")
+ @Pattern(regexp = "^\\d+$", message = "Phone number can only contain numbers")
+ String phoneNumber;
 }

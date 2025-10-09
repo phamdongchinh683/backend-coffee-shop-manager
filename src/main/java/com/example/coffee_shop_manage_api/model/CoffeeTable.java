@@ -21,6 +21,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,14 +43,18 @@ public class CoffeeTable {
  String id;
 
  @Column(name = "table_number", nullable = false)
+ @NotNull(message = "Table number is required")
+ @Positive(message = "Table number must be positive")
  Short tableNumber;
 
  @Enumerated(EnumType.STRING)
  @Column(nullable = false)
+ @NotNull(message = "Table status is required")
  TableStatus status = TableStatus.AVAILABLE;
 
  @Enumerated(EnumType.STRING)
  @Column(name = "payment_status", nullable = false)
+ @NotNull(message = "Payment status is required")
  PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
  @CreationTimestamp

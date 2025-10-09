@@ -26,6 +26,13 @@ public class SecurityConfig {
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authz -> authz
             .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/api/users/**").hasRole("ADMIN")
+            .requestMatchers("/api/reports/**").hasRole("ADMIN")
+            .requestMatchers("/api/menus/**").hasAnyRole("ADMIN", "GUEST")
+            .requestMatchers("/api/orders/**").hasAnyRole("ADMIN", "GUEST")
+            .requestMatchers("/api/order-items/**").hasAnyRole("ADMIN")
+            .requestMatchers("/api/tables/**").hasAnyRole("ADMIN", "GUEST")
+            .requestMatchers("/api/reservations/**").hasAnyRole("ADMIN", "GUEST")
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();

@@ -2,7 +2,6 @@ package com.example.coffee_shop_manage_api.configuration;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,46 +20,45 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
- private final JwtHelper jwtHelper;
- private final UserDetailsService userDetailsService;
+  private final JwtHelper jwtHelper;
+  private final UserDetailsService userDetailsService;
 
- public JwtAuthenticationFilter(JwtHelper jwtHelper, UserDetailsService userDetailsService) {
-  this.jwtHelper = jwtHelper;
-  this.userDetailsService = userDetailsService;
- }
-
- @Override
- protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-   throws ServletException, IOException {
-
-  final String authHeader = request.getHeader("Authorization");
-  final String jwt;
-  final String username;
-
-  if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-   filterChain.doFilter(request, response);
-   return;
+  public JwtAuthenticationFilter(JwtHelper jwtHelper, UserDetailsService userDetailsService) {
+    this.jwtHelper = jwtHelper;
+    this.userDetailsService = userDetailsService;
   }
 
-  jwt = authHeader.substring(7);
-  try {
-   username = jwtHelper.extractUsername(jwt);
+  @Override
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
-   if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    final String authHeader = request.getHeader("Authorization");
+    final String jwt;
+    final String username;
 
-    if (jwtHelper.validateToken(jwt, (UserInfo) userDetails)) {
-     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-       userDetails, null, userDetails.getAuthorities());
-     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-     SecurityContextHolder.getContext().setAuthentication(authToken);
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+      filterChain.doFilter(request, response);
+      return;
     }
-   }
-  } catch (Exception e) {
-   // Log the exception if needed
-   logger.error("Cannot set user authentication: {}", e);
-  }
 
-  filterChain.doFilter(request, response);
- }
+    jwt = authHeader.substring(7);
+    try {
+      username = jwtHelper.extractUsername(jwt);
+
+      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        if (jwtHelper.validateToken(jwt, (UserInfo) userDetails)) {
+          UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+              userDetails, null, userDetails.getAuthorities());
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+          SecurityContextHolder.getContext().setAuthentication(authToken);
+        }
+      }
+    } catch (Exception e) {
+      logger.error("Cannot set user authentication: {}", e);
+    }
+
+    filterChain.doFilter(request, response);
+  }
 }
