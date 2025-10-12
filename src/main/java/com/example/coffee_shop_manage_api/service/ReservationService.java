@@ -69,7 +69,7 @@ public class ReservationService extends AbstractCommonService<Reservation, Strin
 
         orderItemService.createAll(items);
 
-        return "oke";
+        return "Created successfully";
     }
 
 }
