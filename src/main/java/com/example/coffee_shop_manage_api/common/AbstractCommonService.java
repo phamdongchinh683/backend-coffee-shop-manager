@@ -3,11 +3,10 @@ package com.example.coffee_shop_manage_api.common;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
-// removed unused PagingAndSortingRepository import
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public abstract class AbstractCommonService<T, ID_TYPE> {

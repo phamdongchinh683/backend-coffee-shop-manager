@@ -17,9 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfo implements UserDetails {
+ String id;
  String fullName;
  String username;
  UserRole role;
+
+ public String getId() {
+  return id;
+ }
 
  public String getFullName() {
   return fullName;

@@ -15,7 +15,7 @@ import com.example.coffee_shop_manage_api.model.OrderItem;
 import com.example.coffee_shop_manage_api.service.OrderItemService;
 
 @RestController
-@RequestMapping("/api/order-items/v1")
+@RequestMapping("/api/v1/order-items")
 @PreAuthorize("hasRole('GUEST')")
 public class OrderItemController extends AbstractCommonController<OrderItem, String> {
 
@@ -28,7 +28,7 @@ public class OrderItemController extends AbstractCommonController<OrderItem, Str
 
  @PostMapping("/batch")
  public ResponseEntity<ApiResponseData<List<OrderItem>>> insertMany(@RequestBody List<OrderItem> orderItems) {
-  List<OrderItem> createdOrderItems = orderItemService.createAll(orderItems);
+  List<OrderItem> createdOrderItems = orderItemService.insertMany(orderItems);
   return ResponseEntity.ok(ApiResponseData.success("Created successfully", createdOrderItems));
  }
 }

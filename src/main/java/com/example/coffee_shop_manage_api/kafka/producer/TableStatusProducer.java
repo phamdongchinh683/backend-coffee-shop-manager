@@ -30,7 +30,7 @@ public class TableStatusProducer {
 
    String message = objectMapper.writeValueAsString(payload);
 
-   kafkaTemplate.send(TOPIC, "table-" + tableNumber, message);
+   kafkaTemplate.send(TOPIC, "table-status-" + tableNumber, message);
 
   } catch (Exception e) {
    logger.error("Error preparing table status update for table {}", tableNumber, e);

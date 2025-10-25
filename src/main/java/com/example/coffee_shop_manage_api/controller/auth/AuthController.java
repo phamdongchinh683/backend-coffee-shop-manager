@@ -14,7 +14,7 @@ import com.example.coffee_shop_manage_api.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/auth/v1")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
  private final UserService userService;

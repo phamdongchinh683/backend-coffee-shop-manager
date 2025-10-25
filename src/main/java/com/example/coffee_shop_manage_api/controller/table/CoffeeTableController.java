@@ -14,7 +14,7 @@ import com.example.coffee_shop_manage_api.model.CoffeeTable;
 import com.example.coffee_shop_manage_api.service.CoffeeTableService;
 
 @RestController
-@RequestMapping("/api/tables/v1")
+@RequestMapping("/api/v1/tables")
 @PreAuthorize("hasRole('ADMIN')")
 public class CoffeeTableController extends AbstractCommonController<CoffeeTable, String> {
 

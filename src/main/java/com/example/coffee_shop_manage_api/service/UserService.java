@@ -41,6 +41,7 @@ public class UserService extends AbstractCommonService<User, String> implements 
     String hashPassword = passwordEncoder.encode(userCreationDto.getPassword());
     user.setFullName(userCreationDto.getFullName());
     user.setUsername(userCreationDto.getUsername());
+    user.setPhoneNumber(userCreationDto.getPhoneNumber());
     user.setPassword(hashPassword);
     user.setRole(UserRole.GUEST);
     return userRepository.save(user);
@@ -54,7 +55,7 @@ public class UserService extends AbstractCommonService<User, String> implements 
       throw new RuntimeException("Invalid password");
     }
 
-    UserInfo userInfo = new UserInfo(user.getFullName(), user.getUsername(), user.getRole());
+    UserInfo userInfo = new UserInfo(user.getId(), user.getFullName(), user.getUsername(), user.getRole());
 
     final String jwt = jwtHelper.generateToken(userInfo);
 
@@ -70,7 +71,7 @@ public class UserService extends AbstractCommonService<User, String> implements 
     }
 
     User foundUser = user.get();
-    return new UserInfo(foundUser.getFullName(),
+    return new UserInfo(foundUser.getId(), foundUser.getFullName(),
         foundUser.getUsername(), foundUser.getRole());
   }
 

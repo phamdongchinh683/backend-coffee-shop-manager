@@ -15,9 +15,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.DecimalMin;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,15 +41,15 @@ public class Report {
     @NotNull(message = "Report date is required")
     LocalDate reportDate;
 
-    @Column(name = "total_customers", nullable = false)
-    @NotNull(message = "Total customers is required")
-    @PositiveOrZero(message = "Total customers must be zero or positive")
-    Integer totalCustomers;
-
     @Column(name = "total_orders", nullable = false)
     @NotNull(message = "Total orders is required")
     @PositiveOrZero(message = "Total orders must be zero or positive")
     Integer totalOrders;
+
+    @Column(name = "total_customer", nullable = false)
+    @NotNull(message = "Total customer is required")
+    @PositiveOrZero(message = "Total customer must be zero or positive")
+    Integer totalCustomer;
 
     @Column(name = "total_revenue", nullable = false, precision = 12, scale = 2)
     @NotNull(message = "Total revenue is required")

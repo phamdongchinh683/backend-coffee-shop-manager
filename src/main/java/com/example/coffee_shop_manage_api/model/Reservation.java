@@ -5,8 +5,9 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.coffee_shop_manage_api.global.ReservationStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,14 +20,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import com.example.coffee_shop_manage_api.global.ReservationStatus;
 
 @Entity
 @Table(name = "reservations")
@@ -62,6 +62,10 @@ public class Reservation {
  @NotNull(message = "Reservation time is required")
  @Future(message = "Reservation time must be in the future")
  LocalDateTime reservationTime;
+
+ @Column(name = "number_of_guests", nullable = false)
+ @NotNull(message = "Number of guests is required")
+ Integer numberOfGuests;
 
  @CreationTimestamp
  @Column(name = "created_at", updatable = false)

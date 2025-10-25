@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.example.coffee_shop_manage_api.global.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,14 +25,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import com.example.coffee_shop_manage_api.global.OrderStatus;
 
 @Entity
 @Table(name = "orders")
@@ -47,13 +48,13 @@ public class Order {
 
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "table_id", nullable = false)
- @JsonIgnore
+ @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
  @NotNull(message = "Table is required")
  CoffeeTable table;
 
  @ManyToOne(fetch = FetchType.LAZY)
  @JoinColumn(name = "user_id", nullable = false)
- @JsonIgnore
+ @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
  @NotNull(message = "User is required")
  User user;
 

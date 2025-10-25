@@ -13,7 +13,23 @@ public class KafkaConfig {
   public NewTopic tableStatusTopic() {
     return TopicBuilder.name("table-status")
         .partitions(2)
-        .replicas(1) 
+        .replicas(1)
+        .build();
+  }
+
+  @Bean
+  public NewTopic reservationTopic() {
+    return TopicBuilder.name("pending-orders")
+        .partitions(2)
+        .replicas(1)
+        .build();
+  }
+
+  @Bean
+  public NewTopic reportTopic() {
+    return TopicBuilder.name("report-orders")
+        .partitions(2)
+        .replicas(1)
         .build();
   }
 }

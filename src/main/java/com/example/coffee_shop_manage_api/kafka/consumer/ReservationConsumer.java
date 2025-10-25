@@ -6,25 +6,22 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import com.corundumstudio.socketio.SocketIOServer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
-public class TableStatusConsumer {
- private static final Logger logger = LoggerFactory.getLogger(TableStatusConsumer.class);
+public class ReservationConsumer {
+ private static final Logger logger = LoggerFactory.getLogger(ReservationConsumer.class);
 
  private final SocketIOServer socketIOServer;
 
- public TableStatusConsumer(SocketIOServer socketIOServer) {
+ public ReservationConsumer(SocketIOServer socketIOServer) {
   this.socketIOServer = socketIOServer;
-  logger.info("TableStatusConsumer initialized with SocketIOServer");
+  logger.info("Reservation initialized with SocketIOServer");
  }
 
- @KafkaListener(topics = "table-status", groupId = "coffee-shop-group")
+ @KafkaListener(topics = "pending-orders", groupId = "coffee-shop-group")
  public void listen(String message) {
   try {
-
-   socketIOServer.getBroadcastOperations().sendEvent("updateTable", message);
-
+   socketIOServer.getBroadcastOperations().sendEvent("updateReservation", message);
   } catch (Exception e) {
    logger.error("Error processing Kafka message: {}", message, e);
   }

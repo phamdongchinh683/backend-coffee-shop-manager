@@ -8,10 +8,11 @@ import com.example.coffee_shop_manage_api.model.Menu;
 import com.example.coffee_shop_manage_api.service.MenuService;
 
 @RestController
-@RequestMapping("/api/menus/v1")
+@RequestMapping("/api/v1/menus")
 public class MenuController extends AbstractCommonController<Menu, String> {
 
  public MenuController(MenuService menuService) {
   super(menuService);
  }
+
 }

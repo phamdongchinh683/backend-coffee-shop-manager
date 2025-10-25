@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import com.example.coffee_shop_manage_api.global.ApiResponseData;
 import com.example.coffee_shop_manage_api.model.Menu;
 import com.example.coffee_shop_manage_api.service.MenuService;
 
 @RestController
-@RequestMapping("/api/menus/v2")
+@RequestMapping("/api/v2/menus")
 @PreAuthorize("hasRole('ADMIN')")
 public class MenuControllerV2 {
  private final MenuService menuService;
